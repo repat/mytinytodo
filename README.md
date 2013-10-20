@@ -2,6 +2,10 @@ mytinytodo
 ======
 GitHub clone of [mytinytodo.googlecode.com](http://mytinytodo.googlecode.com "mytinytodo on googlecode"). The project doesn't seem to be actively developed anymore(last update: March 21, 2011), so I put this up here. I'll write a couple of extensions like a small API and maybe an Android App if I find the time. Contributions welcome!
 
+### Similar projects
+* [alex-LE: yourTinyTodo](https://github.com/alex-LE/yourTinyTodo)
+* [drahmel: myTinyTodo](https://github.com/drahmel/myTinyTodo)
+
 ### Author
 * Max Pozdeev
 * http://pozdeev.com/
@@ -10,7 +14,7 @@ GitHub clone of [mytinytodo.googlecode.com](http://mytinytodo.googlecode.com "my
 ### Copyright
 * [GNU GPL v3](http://opensource.org/licenses/GPL-3.0 "GPL 3.0 on opensource.org")
 
-## Contact for this repository
+### Contact for this repository
 * http://repat.de
 * email: repat[at]repat[dot]de
 * XMPP: repat@jabber.ccc.de
