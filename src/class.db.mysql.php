@@ -163,6 +163,12 @@ class Database_Mysql
 		if($q === false) return false;
 		else return true;
 	}
+
+	function mysql_query($sql)
+	{
+		$q = mysql_query($sql);
+		return $q;
+	}
 }
 
 ?>
