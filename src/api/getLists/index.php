@@ -22,7 +22,7 @@ if (Config::get('password') != "") {
 }
 
 // Build SQL-query with $listname from above
-$qry = $db->mysql_query("SELECT id,name FROM {$db->prefix}lists");
+$qry = $db->dq("SELECT id,name FROM {$db->prefix}lists");
 if(!$qry) {
 	die("No such data or access denied");
 }
@@ -30,9 +30,21 @@ if(!$qry) {
 // identifier
 $i = 0;
 
-while($row=mysql_fetch_array($qry)) {
-	echo json_encode(array('id' . $i => $row[0],'name' . $i => $row[1]));
-	$i++;
+
+// Output as JSON
+if (Config::get('db') == 'sqlite') {
+	while($row=$qry->fetch_row($qry)) {
+		echo json_encode(array('id' . $i => $row[0],'name' . $i => $row[1]));
+		$i++;
+	}
+} elseif (Config::get('db') == 'mysql') {
+	while($row=$qry->fetch_row()) {
+		echo json_encode(array('id' . $i => $row[0],'name' . $i => $row[1]));
+		$i++;
+	}
+} else {
+	echo "{}";
 }
+
 ?>
 
