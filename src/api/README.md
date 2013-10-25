@@ -1,23 +1,23 @@
 mytinytodo API
 ======
-I plan and already started writing a simple JSON-API forlLists and items for myTinyTodo. It's very very alpha, don't use it yet. Contributions welcome!
+I'm writing a simple JSON-API for lists and items for myTinyTodo. It's very very alpha, don't use it yet. Contributions welcome!
 
 ### For Debugging only
-#### /api/getMD5pw
+#### GET /api/getMD5pw
 If there is a password set in `db/config.php.default`, it will be displayed as a [MD5-Hash](https://en.wikipedia.org/wiki/MD5 "MD5 on wikipedia").
 
 Example(MD5 for 'password'):
- `{"md5pw":"5f4dcc3b5aa765d61d8327deb882cf99"}`
+`{"md5pw":"5f4dcc3b5aa765d61d8327deb882cf99"}`
 
-#### /api/getSHA1pw
+#### GET /api/getSHA1pw
 If there is a password set in `db/config.php.default`, it will be displayed as a [SHA-1-Hash](https://en.wikipedia.org/wiki/SHA-1 "SHA-1 on wikipedia").
 
 Example(SHA-1 for 'password'):
- `{"sha1pw":"5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"}`
+`{"sha1pw":"5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"}`
 
-### Getters
+### Get
 
-#### /api/getTitles
+#### GET /api/getTitles
 Returns all entries of specified list(`$listname`) and numbers them with an index. I'm gonna rewrite this.
 
 Parameters:
@@ -28,18 +28,32 @@ Parameters:
 Example:
 `{"title0":"testentry"}`
 
-#### /api/getTitles
-Returns the lists and numbers both id and name with an index.I'm gonna rewrite this.
+#### GET /api/getLists
+Returns the lists and numbers both id and name with an index. The number is the `id` from the database-table.
 
 Parameters:
 * optional: md5pw (see above)
 * optional: sha1pw (see above)
 
 Example:
-`{"id0":"1","name0":"Todo"}`
+`{"id1":"Private","id2":"Work","id3":"University"}`
 
-### Setters
--
+### Set
+
+#### POST /api/updateEntry
+
+#### POST /api/insertNewEntry
+
+#### POST /api/newList
+
+### Remove
+
+#### POST /api/removeEntry
+#### POST /api/removeList
+
+
+### Known issues
+* Problems with [German Umlauts](https://en.wikipedia.org/wiki/Germanic_umlaut "German Umlauts on Wikipedia")
 
 ### Contact
 * http://repat.de

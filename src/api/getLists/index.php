@@ -27,24 +27,23 @@ if(!$qry) {
 	die("No such data or access denied");
 }
 
-// identifier
-$i = 0;
+$jsonarray = array();
 
-
-// Output as JSON
+// build arrays from SQL-query
 if (Config::get('db') == 'sqlite') {
 	while($row=$qry->fetch_row($qry)) {
-		echo json_encode(array('id' . $i => $row[0],'name' . $i => $row[1]));
-		$i++;
+		$jsonarray += array('id' . $row[0] => $row[1]);
 	}
 } elseif (Config::get('db') == 'mysql') {
 	while($row=$qry->fetch_row()) {
-		echo json_encode(array('id' . $i => $row[0],'name' . $i => $row[1]));
-		$i++;
+		$jsonarray += array('id' . $row[0] => $row[1]);
 	}
 } else {
 	echo "{}";
 }
+
+// Output as JSON
+echo json_encode($jsonarray);
 
 ?>
 
