@@ -18,7 +18,7 @@ Example(SHA-1 for 'password'):
 ### Get
 
 #### GET /api/getTitles
-Returns all entries of specified list(`$listname`) and numbers them with an index. I'm gonna rewrite this.
+Returns all entries of specified list(`$listname`) and numbers them with an index. I'm gonna rewrite this with a nested JSON-array.
 
 Parameters:
 * listname
@@ -29,7 +29,7 @@ Example:
 `{"title0":"testentry"}`
 
 #### GET /api/getLists
-Returns the lists and numbers both id and name with an index. The number is the `id` from the database-table.
+Returns the lists with an index. The index number is the `id` from the database-table.
 
 Parameters:
 * optional: md5pw (see above)
@@ -41,9 +41,7 @@ Example:
 ### Set
 
 #### POST /api/updateEntry
-
-#### POST /api/insertNewEntry
-
+#### POST /api/newEntry
 #### POST /api/newList
 
 ### Remove
@@ -51,9 +49,10 @@ Example:
 #### POST /api/removeEntry
 #### POST /api/removeList
 
-
 ### Known issues
 * Problems with [German Umlauts](https://en.wikipedia.org/wiki/Germanic_umlaut "German Umlauts on Wikipedia")
+
+-
 
 ### Contact
 * http://repat.de
