@@ -38,6 +38,16 @@ Parameters:
 Example:
 `{"id1":"Private","id2":"Work","id3":"University"}`
 
+#### GET /api/getNumberOfLists
+Returns the number of ToDo-Lists
+
+Parameters:
+* optional: md5pw (see above)
+* optional: sha1pw (see above)
+
+Example:
+`{"numberOfLists":"3"}`
+
 ### Set
 
 #### POST /api/updateEntry
