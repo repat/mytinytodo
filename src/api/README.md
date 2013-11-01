@@ -1,6 +1,6 @@
 mytinytodo API
 ======
-I'm writing a simple JSON-API for lists and items for myTinyTodo. It's very very alpha, don't use it yet. Contributions welcome!
+I'm writing a simple JSON-API for lists and items for myTinyTodo. It's very very alpha and changing fast. Don't use it yet. Contributions welcome!
 
 ### For Debugging only
 #### GET /api/getMD5pw
@@ -29,14 +29,14 @@ Example:
 `{"title0":"testentry"}`
 
 #### GET /api/getLists
-Returns the lists with an index. The index number is the `id` from the database-table.
+Returns the lists with an index. The key is the `list` + an index number which is the counting up from 0. The value is another json object with the `id` from the database-table and the name. The `id` is going to be needed for updating the table later on.
 
 Parameters:
 * optional: md5pw (see above)
 * optional: sha1pw (see above)
 
 Example:
-`{"id1":"Private","id2":"Work","id3":"University"}`
+`{"list0":{"id":"1","name":"Private"},"list1":{"id":"2","name":"Work"},"list2":{"id":"3","name":"University"}}`
 
 #### GET /api/getNumberOfLists
 Returns the number of ToDo-Lists

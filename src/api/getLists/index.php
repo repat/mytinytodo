@@ -28,15 +28,18 @@ if(!$qry) {
 }
 
 $jsonarray = array();
+$i = 0;
 
 // build arrays from SQL-query
 if (Config::get('db') == 'sqlite') {
 	while($row=$qry->fetch_row($qry)) {
-		$jsonarray += array('id' . $row[0] => $row[1]);
+		$jsonarray += array('list' . $i => array( "id"=> $row[0], "name" => $row[1]));
+		$i++;
 	}
 } elseif (Config::get('db') == 'mysql') {
 	while($row=$qry->fetch_row()) {
-		$jsonarray += array('id' . $row[0] => $row[1]);
+				$jsonarray += array('list' . $i => array( "id"=> $row[0], "name" => $row[1]));
+		$i++;
 	}
 } else {
 	echo "{}";
