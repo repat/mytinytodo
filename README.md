@@ -1,6 +1,8 @@
 mytinytodo
 ======
-GitHub clone of [mytinytodo.googlecode.com](http://mytinytodo.googlecode.com "mytinytodo on googlecode"). The project doesn't seem to be actively developed anymore(last update: March 21, 2011), so I put this up here. I'll write a couple of extensions like a small API and maybe an Android App if I find the time. Contributions welcome!
+GitHub clone of [mytinytodo.googlecode.com](http://mytinytodo.googlecode.com "mytinytodo on googlecode"). The project doesn't seem to be actively developed anymore(last update: March 21, 2011), so I put this up here.
+
+I'm writing a small API and an Android App whenever I find time. Also, I'm slowly writing support for PostgreSQL. Contributions welcome!
 
 ### Similar projects
 * [alex-LE: yourTinyTodo](https://github.com/alex-LE/yourTinyTodo)

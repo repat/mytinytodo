@@ -4,6 +4,7 @@
 	This file is part of myTinyTodo.
 	(C) Copyright 2009-2011 Max Pozdeev <maxpozdeev@gmail.com>
 	Licensed under the GNU GPL v3 license. See file COPYRIGHT for details.
+    Added postgres, repat<repat@repat.de>, Nov2013
 */
 
 set_exception_handler('myExceptionHandler');
@@ -18,7 +19,13 @@ if(!isset($config['db']))
 		$config['mysql.db'] = $config['mysql'][3];
 		$config['mysql.user'] = $config['mysql'][1];
 		$config['mysql.password'] = $config['mysql'][2];
-	} else {
+	} if(isset($config['postgres'])) {
+        $config['db'] = 'postgres';
+		$config['pg.host'] = $config['pg'][0];
+		$config['pg.db'] = $config['pg'][3];
+		$config['pg.user'] = $config['pg'][1];
+		$config['pg.password'] = $config['pg'][2];
+    } else {
 		$config['db'] = 'sqlite';
 	}
 	if(isset($config['allow']) && $config['allow'] == 'read') $config['allowread'] = 1;
@@ -31,7 +38,15 @@ if($config['db'] != '')
 	{
 		die("Access denied!<br> Disable password protection or Log in.");
 	}
-	$dbtype = (strtolower(get_class($db)) == 'database_mysql') ? 'mysql' : 'sqlite';
+    if ((strtolower(get_class($db))) == 'database_mysql'){
+        $dbtype = 'mysql';
+    } else if ((strtolower(get_class($db))) == 'database_postgres')
+    {
+        $dbtype = 'postgres';
+    } else
+    {
+	    $dbtype = 'sqlite';
+    }
 }
 else
 {
@@ -56,6 +71,7 @@ if(!$ver)
 	# Which DB to select
 	if(!isset($_POST['installdb']) && !isset($_POST['install']))
 	{
+        // TODO
 		exitMessage("<form method=post>Select database type to use:<br><br>
 <label><input type=radio name=installdb value=sqlite checked=checked onclick=\"document.getElementById('mysqlsettings').style.display='none'\">SQLite</label><br><br>
 <label><input type=radio name=installdb value=mysql onclick=\"document.getElementById('mysqlsettings').style.display=''\">MySQL</label><br>
@@ -68,6 +84,7 @@ if(!$ver)
 	}
 	elseif(isset($_POST['installdb']))
 	{
+        // TODO add postgres here
 		# Save configuration
 		$dbtype = ($_POST['installdb'] == 'mysql') ? 'mysql' : 'sqlite';
 		Config::set('db', $dbtype);
@@ -76,6 +93,12 @@ if(!$ver)
 			Config::set('mysql.db', _post('mysql_db'));
 			Config::set('mysql.user', _post('mysql_user'));
 			Config::set('mysql.password', _post('mysql_password'));
+			Config::set('prefix', trim(_post('prefix')));
+		} else if($dbtype == 'postgres') {
+			Config::set('pg.host', _post('pg_host'));
+			Config::set('pg.db', _post('pg_db'));
+			Config::set('pg.user', _post('pg_user'));
+			Config::set('pg.password', _post('pg_password'));
 			Config::set('prefix', trim(_post('prefix')));
 		}
 		if(!testConnect($error)) {
@@ -156,6 +179,7 @@ if(!$ver)
 			exitMessage("<b>Error:</b> ". htmlarray($e->getMessage()));
 		}
 	}
+    // TODO CREATE TABLE Postgres Style
 	else #sqlite
 	{
 		try
@@ -313,6 +337,7 @@ function printFooter()
 
 function has_field_sqlite($db, $table, $field)
 {
+    // TODO PRAGMA with Postgres
 	$q = $db->dq("PRAGMA table_info(". $db->quote($table). ")");
 	while($r = $q->fetch_row()) {
 		if($r[1] == $field) return true;
@@ -322,6 +347,7 @@ function has_field_sqlite($db, $table, $field)
 
 function has_field_mysql($db, $table, $field)
 {
+    // TODO verify this works with Postgres
 	$q = $db->dq("DESCRIBE `$table`");
 	while($r = $q->fetch_row()) {
 		if($r[0] == $field) return true;
@@ -338,6 +364,11 @@ function testConnect(&$error)
 			require_once(MTTPATH. 'class.db.mysql.php');
 			$db = new Database_Mysql;
 			$db->connect(Config::get('mysql.host'), Config::get('mysql.user'), Config::get('mysql.password'), Config::get('mysql.db'));
+		} else if(Config::get('db') == 'mysql')
+		{
+			require_once(MTTPATH. 'class.db.postgres.php');
+			$db = new Database_Postgres;
+			$db->connect(Config::get('pg.host'), Config::get('pg.user'), Config::get('pg.password'), Config::get('pg.db'));
 		} else
 		{
 			if(false === $f = @fopen(MTTPATH. 'db/todolist.db', 'a+')) throw new Exception("database file is not readable/writable");
@@ -363,7 +394,7 @@ function myExceptionHandler($e)
 	exit;
 }
 
-
+// TODO updates dont work
 ### 1.1-1.2 ##########
 function update_11_12($db, $dbtype)
 {

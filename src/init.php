@@ -34,6 +34,14 @@ elseif(Config::get('db') == 'sqlite')
 	$db = DBConnection::init(new Database_Sqlite3);
 	$db->connect(MTTPATH. 'db/todolist.db');
 }
+# Postgres Database connection
+elseif(Config::get('db') == 'postgres')
+{
+	require_once(MTTPATH. 'class.db.postgres.php');
+	$db = DBConnection::init(new Database_Postgres);
+	$db->connect(Config::get('pg.host'), Config::get('pg.user'), Config::get('pg.password'), Config::get('pg.db'));
+	$db->dq("SET NAMES utf8");
+}
 else {
 	# It seems not installed
 	die("Not installed. Run <a href=setup.php>setup.php</a> first.");

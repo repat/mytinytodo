@@ -27,28 +27,29 @@ if (Config::get('password') != "") {
 }
 
 // Build SQL-query with $listname from above
-$qry = $db->dq("SELECT title FROM {$db->prefix}todolist tdl, {$db->prefix}lists l WHERE l.id = (SELECT id FROM {$db->prefix}lists WHERE name = \"" . $listname . "\")");
+$qry = $db->dq("SELECT tdl.id,tdl.title FROM {$db->prefix}todolist tdl, {$db->prefix}lists l WHERE l.id = (SELECT id FROM {$db->prefix}lists WHERE name = \"" . $listname . "\")");
 if(!$qry) {
 	die("No such data or access denied");
 }
 
-// identifier
-$i = 0;
+$jsonarray = array();
 
-// Output as JSON
+// build arrays from SQL-query
 if (Config::get('db') == 'sqlite') {
 	while($row=$qry->fetch_row($qry)) {
-		echo json_encode(array('title' . $i => $row[0]));
-		$i++;
+		$jsonarray += array('title' . $row[0] => $row[1]);
 	}
 } elseif (Config::get('db') == 'mysql') {
 	while($row=$qry->fetch_row()) {
-		echo json_encode(array('title' . $i => $row[0]));
-		$i++;
+		$jsonarray += array('title' . $row[0] => $row[1]);
 	}
 } else {
 	echo "{}";
 }
+
+// Output as JSON
+echo json_encode($jsonarray);
+
 ?>
 
 

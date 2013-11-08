@@ -6,6 +6,7 @@
 	Licensed under the GNU GPL v3 license. See file COPYRIGHT for details.
 */
 
+//TODO check if PG can do these queries
 $dontStartSession = 1;
 require_once('./init.php');
 

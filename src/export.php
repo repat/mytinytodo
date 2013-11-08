@@ -7,6 +7,7 @@
 */
 
 //$dontStartSession = 1;
+//TODO check if PG can do these queries
 require_once('./init.php');
 
 $onlyPublishedList = false;
