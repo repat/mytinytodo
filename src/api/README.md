@@ -1,6 +1,10 @@
 mytinytodo API
 ======
-I'm writing a simple JSON-API for lists and items for myTinyTodo. It's very very alpha and changing fast. Don't use it yet. Contributions welcome!
+I'm writing a simple RESTful JSON-API for lists and items for myTinyTodo. It's very very alpha and not secure at all. Don't use it yet. Contributions welcome!
+
+### I'm working on this right now ###
+* Application Token/Signature(as in hash(user+apptoken))
+* getTitles format
 
 ### For Debugging only
 #### GET /api/getMD5pw
@@ -18,7 +22,7 @@ Example(SHA-1 for 'password'):
 ### Get
 
 #### GET /api/getTitles
-Returns all entries of specified list(`$listname`) and numbers them with an index. I'm gonna rewrite this with a nested JSON-array.
+Returns all entries of specified list(`$listname`) and numbers them with an index. **I'm gonna rewrite this with a nested JSON-array.**
 
 Parameters:
 * listname
